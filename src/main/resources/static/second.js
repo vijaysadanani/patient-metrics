@@ -4,18 +4,20 @@ let putUrl = "http://localhost:9595/patient";
 let patUrl = "http://localhost:9595/patient/all";
 let deleteUrl = "http://localhost:9595/patient";
 
-
+//Some event listeners to show the different forms on the page as well as display the dropdown options.
 document.getElementById("showForm").addEventListener("click", showTheForm);
 document.getElementById("showEdit").addEventListener("click", editTheForm);
 document.getElementById("savePatient").addEventListener("click", editPatient);
 document.getElementById("showDelete").addEventListener("click", showDelete);
 document.getElementById("deletePatient").addEventListener("click", deleteThePatient);
+document.getElementById("submitPatient").addEventListener("click", addPatient);
 
-
+//An onload function to run two ajaxRequests as well as displaying the doctors dropdown.
 window.onload = function() {
     showTheDocsOnce();
     ajaxRequest("GET", patUrl, displayPatients);
     ajaxRequest("GET", patUrl, displayAllInfo);
+    displayRequest();
 }
 
 function showTheDocsOnce(){
@@ -26,6 +28,8 @@ function showTheDocsOnce(){
     }
 }
 
+//Some functions to hide or display the different divs that are displaying the forms themselves. Once a button has been clicked, it will prompt these
+//functions to delete the attribute of hidden, and set the other two divs to be hidden.
 function showDelete(){
 	let delNode = document.getElementsByTagName("div")[9];
 	let formNode = document.getElementsByTagName("div")[5];
@@ -65,7 +69,7 @@ function editTheForm(){
     delNode.setAttribute("hidden", true);
 }
 
-
+//Function that grabs all the doctors and displays them in the dropdown using addDocSelect.
 function displayDoctors(xhr){
     let doctors = JSON.parse(xhr.response);
     console.log(doctors);
@@ -74,6 +78,7 @@ function displayDoctors(xhr){
      }
 }
 
+//Function that grabs all the patients and displays them in the dropdown using editPatients.
 function displayPatients(xhr){
     let patientIds = JSON.parse(xhr.response);
     for (pats of patientIds){
@@ -81,6 +86,7 @@ function displayPatients(xhr){
     }
 }
 
+//Function that is appending the options to the patient select dropdowns as well as setting the innerHTML to each patient id, first name, and last name.
 function editPatients(patId, patFirst, patLast){
     let selectPat = document.getElementById("patSelect");
     let optionPat = document.createElement("option");
@@ -90,6 +96,7 @@ function editPatients(patId, patFirst, patLast){
 
 }
 
+//Function that is appending the options to the doctor select dropdowns as well as setting the innerHTML to each doctor id, doctor first name, doctor last name.
 function addDocSelect(docId, docFirst, docLast){
     let select = document.getElementById("docSelect");
     let option = document.createElement("option");
@@ -105,6 +112,7 @@ function addDocSelect(docId, docFirst, docLast){
 
 }
 
+//ajaxRequest general function for all GET requests
 function ajaxRequest(method, url, callback){
     let xhr = new XMLHttpRequest();
     xhr.open(method, url);
@@ -116,6 +124,7 @@ function ajaxRequest(method, url, callback){
     xhr.send();
 }
 
+//ajaxPost function for adding a new patient, with some successful/error messages being defined.
 function ajaxPost(url, callback, newPatientObj){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url);
@@ -124,10 +133,13 @@ function ajaxPost(url, callback, newPatientObj){
             return callback(this);
         } if(xhr.status === 201){
             document.getElementById("submitParagraph").innerHTML = "Successul patient created. To add another patient, please refresh the page.";
+            document.getElementById("submitParagraph").className = "text-success";
         } if(xhr.status === 500){
             document.getElementById("submitParagraph").innerHTML = "Patient cannot be added. Please input a different Id number.";
+            document.getElementById("submitParagraph").className = "text-danger";
         } if (xhr.status === 400){
             document.getElementById("submitParagraph").innerHTML = "No fields may be left blank. Please enter a value for each field.";
+            document.getElementById("submitParagraph").className = "text-danger";
         }
     }
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -135,6 +147,7 @@ function ajaxPost(url, callback, newPatientObj){
     xhr.send(jsonPatient);
 }
 
+//ajaxPut function for editing a new patient, with a successful message.
 function ajaxPut(url, callback, editPatientObj){
     let xhr = new XMLHttpRequest();
     xhr.open("PUT", url);
@@ -152,8 +165,8 @@ function ajaxPut(url, callback, editPatientObj){
     xhr.send(jsonEditPatient);
 }
 
-document.getElementById("submitPatient").addEventListener("click", addPatient);
-
+//The function to actually add a patient. Grabbing the option value from the select dropdown. Splitting it from a string to an array.
+//Setting the values for our object to be sent to the server with pointing to the array indices that identify those values.
 function addPatient(){
 let selectedDoc = document.getElementById("docSelect").value;
 let splitDoc = selectedDoc.split(" ");
@@ -165,6 +178,8 @@ let addPatFirstName = document.getElementById("firstName").value;
 let addPatLastName = document.getElementById("lastName").value;
 let addPatHR =  parseInt(document.getElementById("heartRate").value);
 
+//Some light input sanitation. In future iterations would definitely add more input sanitation to firstname and last name, don't allow for long string entries.
+//Also should add capitalization of first letter with regex
 if (addPatId > 200){
      let removeID = document.getElementsByTagName("p")[1];
      removeID.removeAttribute("hidden");
@@ -209,6 +224,7 @@ if (addPatHR >= 480){
             removeID.setAttribute("hidden", true);
 }
 
+//Object being sent to server
     let newPatient = {
         "doctor": {
             "id": doctorId,
@@ -220,11 +236,11 @@ if (addPatHR >= 480){
               "lastName": addPatLastName,
              "heartRate": addPatHR
      }
-     
+    //Post request 
     ajaxPost(postUrl, printResponse, newPatient);
 }
 
-//The PUT REQUEST
+//The PUT REQUEST -- Very similar to the structure of adding a patient. Splitting string to array. Grabbing values in array to set to object values.
 function editPatient(){
     let selectedEditPat = document.getElementById("patSelect").value;
     let selectedEditDoc = document.getElementById("editDocSelect").value;
@@ -236,8 +252,9 @@ function editPatient(){
     let editPatientId = splitEditPat[0];
     let editedPatientFN = document.getElementById("editFirstName").value;
     let editedPatientLN = document.getElementById("editLastName").value;
-    let editedPatientHR = parseInt(document.getElementById("editHeartRate").value);
+    let editedPatientHR = (document.getElementById("editHeartRate").value);
 
+//Input sanitization. Allowing for blank strings if no edits need to be made to first or last name.
     if(editedPatientFN === ""){
         let splitTempFN = document.getElementById("patSelect").value;
          splitNameArray = splitTempFN.split(" ");
@@ -282,7 +299,14 @@ function editPatient(){
         let removeID = document.getElementsByTagName("p")[7];
             removeID.setAttribute("hidden", true);
 }
-        let editedPatient = {
+
+//setting HR to already set HR if no HR is entered when editing
+    if(editedPatientHR == ""){
+        editedPatientHR = Number(document.getElementById("setHR").innerHTML);
+}
+
+    //edited patient object being sent via put method
+    let editedPatient = {
             "doctor": {
                 "id": editDoctorId,
                 "firstName": editDoctorFirstName,
@@ -293,12 +317,37 @@ function editPatient(){
                     "lastName": editedPatientLN,
                     "heartRate": editedPatientHR
         }
-
-    ajaxPut(putUrl, printResponse, editedPatient);
-
+        ajaxPut(putUrl, printResponse, editedPatient);   
 }
 
-//the DELETE REQUEST
+//Showing the patients information below the dropdown on Edit
+document.getElementById("patSelect").addEventListener("change", displayRequest);
+
+function displayRequest(){
+    ajaxRequest("GET", patUrl, editPatDisplay);
+}
+
+function editPatDisplay(xhr){
+    let patsEdit = JSON.parse(xhr.response);
+    console.log(patsEdit);
+    for(i = 0; i < patsEdit.length; i++){
+        let displayEditPat = document.getElementById("patSelect").value;
+        let editArr = displayEditPat.split(" ");
+        let editPatientId = editArr[0];
+        
+        if (editPatientId == patsEdit[i].id){
+        displayUnderPat(patsEdit[i].doctor.firstName, patsEdit[i].doctor.lastName, patsEdit[i].heartRate);
+        }     
+    }
+}
+
+function displayUnderPat(docF, docL, HR){
+    let hrSpan = document.getElementById("setHR");
+    document.getElementById("patMessage").innerHTML = `This patient currently sees Dr. ${docF} ${docL} and has a recorded heart rate of `;
+    hrSpan.innerHTML = `${HR}`;
+}
+
+//the DELETE REQUEST -- Added a successful delete message.
 function ajaxDelete(url, callback, deletePatientObj){
     let xhr = new XMLHttpRequest();
     xhr.open("DELETE", url);
@@ -306,7 +355,7 @@ function ajaxDelete(url, callback, deletePatientObj){
         if(xhr.readyState===4 && xhr.status===200){
             return callback(this);
         } if (xhr.status === 204){
-            document.getElementById("deleteSuccess").innerHTML = "The selected patient was deleted. Please refresh the page below to view the updated patients table.";
+            document.getElementById("deleteSuccess").innerHTML = "The selected patient was deleted. Please refresh the page above to view the updated patients table.";
         }
     }
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -314,6 +363,7 @@ function ajaxDelete(url, callback, deletePatientObj){
     xhr.send(jsonDelete);
 }
 
+//The function that displays the patients selectable for delete. Populating via the get request.
 function deleteDisplay(patId, patFirst, patLast){
         let deletePatSelect = document.getElementById("delPatSelect");
         let delOptionPat = document.createElement("option");
@@ -322,6 +372,7 @@ function deleteDisplay(patId, patFirst, patLast){
         delOptionPat.innerHTML =+patId+" -- "+patFirst+" "+patLast;  
     }
 
+//Iterating through the patient array to grab the id, firstname, and lastname for the options.
 function displayAllInfo(xhr){
     let patientDeletion = JSON.parse(xhr.response);
     for (patientcall of patientDeletion){
@@ -329,6 +380,8 @@ function displayAllInfo(xhr){
     }
 }
 
+//Actual function that creates the object to be sent for deletion. Same structure as before with splitting the selected value from a string
+//to an array. Then grabbing the first index of the array which is the Id to be deleted.
 function deleteThePatient(){
     let deletePatString = document.getElementById("delPatSelect").value;
     let splitDelete = deletePatString.split(" ");
@@ -349,6 +402,7 @@ function deleteThePatient(){
   ajaxDelete(deleteUrl, printResponse, deleteThisPatient);
 }
 
+//A callback function for my ajax methods just to ensure that the xhr objects are sending the appropriate information.
 function printResponse(){
     console.log(xhr.response);
 }

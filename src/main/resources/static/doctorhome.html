@@ -59,7 +59,7 @@
 				<button class="btn rounded" id="refresh" style="display:inline-block" onclick="window.location.href = 'http://localhost:9595/doctorhome.html'">
 						<img style="width:22px; height:23.5px" src="https://cdn0.iconfinder.com/data/icons/essentials-solid/100/Refresh-512.png">
 				</button>
-					<strong class="text-success" id="submitParagraph" style="display:block"></strong>
+					<strong class="text-danger" id="submitParagraph" style="display:block"></strong>
 			</div>
 		</div>
 
@@ -68,6 +68,7 @@
 			<form>
 				<label for="editId">Select Patient:</label>
 				<select id="patSelect"></select><br><br>
+				<strong id="patMessage"></strong><span style="display:inline; font-weight: bold" id="setHR"></span><br><br>
 				
 				Doctor Name: <select id="editDocSelect"></select><br><br>
 				
