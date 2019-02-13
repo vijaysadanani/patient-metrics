@@ -1,0 +1,127 @@
+body {
+	font-family: 'Spectral', serif;
+}
+
+.indexBG {
+	width: 100%;
+	padding: 3%;
+	background-image: url("https://images.unsplash.com/photo-1521710338287-b65ff0a96e4a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80");
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+  	height: auto;
+  	min-height: 71.4% !important;
+}
+
+#sticky {
+    position: sticky;
+    top: 0;
+}
+
+.container {
+	width: 100%;
+	text-align: center;
+}
+
+.div1 {
+	width: 50%;
+	text-align: center;
+}
+
+.stat {
+	margin: auto;
+	width: 65%;
+}
+
+caption {
+	caption-side: bottom;
+	padding: 5px;
+
+}
+
+#head {
+	width: 100%;
+	text-align: center;
+	color: black;
+}
+
+#phead {
+	text-align: center;
+	color: black;
+}
+
+.header {
+	width: 100%;
+	padding: 3%;
+	background-image: url("https://valleyheartinstitute.com/wp-content/uploads/sites/5994/2017/11/banner-01-1.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 70% 70%;
+	min-height: 22%;
+}
+
+.floatingText{
+	float:left;
+	width: 37%;
+}
+
+.div1 {
+	width: 100%;
+	background-image: url("https://images.unsplash.com/photo-1521710338287-b65ff0a96e4a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	backgroundAttachment: local;
+}
+
+nav {
+	text-align: center;
+	width: 100%;
+	color: white;	
+}
+
+#patients {
+	background-color: rgba(255,255,255, 0.75);
+	height: 65%;
+	display: block;
+    overflow-y: auto;
+    margin: auto;
+    width: 50%;
+}
+
+table {
+    width: 100%;
+	text-align: center;
+}
+
+tr td:first-child {
+	width: 15%;
+}
+
+#min {
+	width: 25%;
+}
+
+td {
+	width: 25%;
+}
+
+#patientStats {
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+.nav a {
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    display: inline;
+	margin: auto;
+}
+
+.nav a:hover{
+	opacity: 0.3;
+}
+
+.btn {
+	border-radius: 1px;
+}

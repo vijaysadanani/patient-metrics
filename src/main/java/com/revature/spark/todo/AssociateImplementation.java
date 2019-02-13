@@ -21,8 +21,13 @@ public class AssociateImplementation {
 	 * @param calls
 	 * @return
 	 */
+	
 	public Double sum(List<Patient> patients) {
-		return null;
+		double sum = 0;
+		for (int i=0; i<patients.size(); i++) {
+			sum += (patients).get(i).getHeartRate();
+		}
+		return sum;
 	}
 
 	/**
@@ -31,10 +36,16 @@ public class AssociateImplementation {
 	 * @param calls
 	 * @return
 	 */
+	
 	public Double min(List<Patient> patients) {
-		return null;
+		double min = patients.get(0).getHeartRate();
+		for (int i=0; i<patients.size()-1; i++) {
+			if ((patients.get(i).getHeartRate()) < min) {
+				min = patients.get(i).getHeartRate();		
+			}
+		}
+		return min;
 	}
-
 	/**
 	 * Find the highest heart rate.
 	 * 
@@ -42,7 +53,13 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double max(List<Patient> patients) {
-		return null;
+		double max = patients.get(0).getHeartRate();
+		for (int i=0; i<patients.size(); i++) {
+			if ((patients.get(i).getHeartRate()) > max) {
+				max = patients.get(i).getHeartRate();
+			}
+		}
+		return max;
 	}
 
 	/**
@@ -52,18 +69,48 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double avg(List<Patient> patients) {
-		return null;
+		double sum = 0;
+		for (int i=0; i<patients.size(); i++) {
+			sum += (patients).get(i).getHeartRate();
+		}
+		return sum/patients.size();
 	}
 
 	/**
 	 * Find the median heart rate.
 	 * 
 	 * @param calls
-	 * @return
+	 * @returny
 	 */
 	public Double median(List<Patient> patients) {
-		return null;
+		double[] patientArray = new double[patients.size()] ;
+		double median = 0;
+		
+		for(int i=0; i < patients.size(); i++) {
+			patientArray[i] = patients.get(i).getHeartRate();
+		}
+
+		for(int i = 0; i < patientArray.length - 1; i++) {
+			for(int j = 0; j < patientArray.length - 1- i; j++) {
+				if(patientArray[j] > patientArray[j+1]) {
+					double temp = patientArray[j];
+					patientArray[j] = patientArray[j+1];
+					patientArray[j+1] = temp;
+				}
+			}
+		}
+		
+		
+		if(patients.size() % 2 == 0) {
+			median = ((double)patientArray[patients.size()/2] + (double)patientArray[(patients.size()/2-1)])/2;
+		}else {
+			median = (double)patientArray[patients.size()/2];
 	}
+		return median;
+}
+		
+	
+
 
 	/**
 	 * !! BONUS CHALLENGE REQUIREMENT !!
@@ -73,7 +120,9 @@ public class AssociateImplementation {
 	 * @param calls
 	 * @return
 	 */
+	
 	public Map<Doctor, Double> highestPatientHeartRatePerDoctor(List<Patient> patients) {
+		
 		return null;
 	}
 

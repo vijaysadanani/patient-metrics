@@ -1,0 +1,113 @@
+body {
+	font-family: 'Spectral', serif;
+}
+
+#head {
+	width: 100%;
+	text-align: center;
+	color: black;
+}
+
+form {
+	font-size: 14pt;
+}
+
+#phead, form{
+	text-align: center;
+	color: black;
+}
+
+#showForm, #showEdit, #showDelete, #refresh{
+	background-color:#9FD575;
+}
+
+.btn:focus, .btn.focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#showForm:hover, #showEdit:hover, #showDelete:hover, #refresh:hover{
+	background-color:#74be3a;
+}
+
+.edit {
+	border: .5px solid black;
+	padding: 10px;
+	width: 42%;
+	margin: auto;
+	background-color: rgba(255,255,255, 0.75);
+}
+
+.all {
+	border: .5px solid black;
+	padding: 10px;
+	width: 42%;
+	margin: auto;
+	background-color: rgba(255,255,255, 0.75);
+}
+
+.delete {
+	border: .5px solid black;
+	padding: 15px;
+	width: 50%;
+	margin: auto;
+	background-color: rgba(255,255,255, 0.75);
+}
+
+.submitPat, .editPat{
+	text-align: center;
+}
+
+.deletePatCenter{
+	text-align: center;
+}
+
+h4{
+	text-align: center;
+}
+
+.header {
+	width: 100%;
+	padding: 3%;
+	background-image: url("https://valleyheartinstitute.com/wp-content/uploads/sites/5994/2017/11/banner-01-1.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 70% 70%;
+	min-height: 22%;
+}
+
+.floatingText{
+	float:left;
+	width: 37%;
+}
+
+/* https://www.assuranceagency.com/Media/Default/solutions/headers/Healthcare%20Banner%20Photo.jpg */
+
+.bgImage {
+	width: 100%;
+	padding: 20px;
+	background-image: url("https://images.unsplash.com/photo-1521710338287-b65ff0a96e4a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 75%;
+	background-position: 70% 70%;
+
+}
+
+nav {
+	text-align: center;
+	width: 100%;
+	color: white;	
+}
+
+.nav a {
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    display: inline;
+	margin: auto;
+}
+
+.nav a:hover{
+	opacity: 0.3;
+}
