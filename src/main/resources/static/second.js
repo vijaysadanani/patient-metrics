@@ -7,8 +7,8 @@ let deleteUrl = "http://localhost:9595/patient";
 //Some event listeners to show the different forms on the page as well as display the dropdown options.
 document.getElementById("showForm").addEventListener("click", showTheForm);
 document.getElementById("showEdit").addEventListener("click", editTheForm);
-document.getElementById("savePatient").addEventListener("click", editPatient);
 document.getElementById("showDelete").addEventListener("click", showDelete);
+document.getElementById("savePatient").addEventListener("click", editPatient);
 document.getElementById("deletePatient").addEventListener("click", deleteThePatient);
 document.getElementById("submitPatient").addEventListener("click", addPatient);
 

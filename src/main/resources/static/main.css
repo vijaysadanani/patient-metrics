@@ -2,6 +2,11 @@ body {
 	font-family: 'Spectral', serif;
 }
 
+.floatingText{
+	float:left;
+	width: 37%;
+}
+
 .indexBG {
 	width: 100%;
 	padding: 3%;
@@ -58,11 +63,6 @@ caption {
 	background-repeat: no-repeat;
 	background-position: 70% 70%;
 	min-height: 22%;
-}
-
-.floatingText{
-	float:left;
-	width: 37%;
 }
 
 .div1 {

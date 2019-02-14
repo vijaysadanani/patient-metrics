@@ -39,7 +39,7 @@ public class AssociateImplementation {
 	
 	public Double min(List<Patient> patients) {
 		double min = patients.get(0).getHeartRate();
-		for (int i=0; i<patients.size()-1; i++) {
+		for (int i=0; i<patients.size(); i++) {
 			if ((patients.get(i).getHeartRate()) < min) {
 				min = patients.get(i).getHeartRate();		
 			}
