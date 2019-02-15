@@ -176,7 +176,8 @@ let docLastName = splitDoc[4];
 let addPatId = parseInt(document.getElementById("id").value);
 let addPatFirstName = document.getElementById("firstName").value;
 let addPatLastName = document.getElementById("lastName").value;
-let addPatHR =  parseInt(document.getElementById("heartRate").value);
+let preAddPatHR = (document.getElementById("heartRate").value);
+let addPatHR = Number(preAddPatHR);
 
 //Some light input sanitation. In future iterations would definitely add more input sanitation to firstname and last name, don't allow for long string entries.
 //Also should add capitalization of first letter with regex
